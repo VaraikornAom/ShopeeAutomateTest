@@ -4,6 +4,7 @@ describe.only('Shopee Tests', () => {
   before(() => {
     cy.visit('/');
 
+    // Languages setting modal
     // Check if the modal appears
     cy.get('body').then(($body) => {
       if ($body.find('#modal').length > 0) {
@@ -14,26 +15,31 @@ describe.only('Shopee Tests', () => {
     });
   });
 
-  it('ScenarioA: Enter Shopee website, landing on home page with EN lang', () => {
+  // Scenario A
+  it('Scenario A: Enter Shopee website, landing on home page with EN language', () => {
     cy.wait(getRandomDelay());
-    cy.get('input.Z7tNyT[name="loginKey"]').type('varaikornchankaipon@gmail.com', { delay: 200 }); // Slower typing delay
+
+    // Change 'USERNAME' and 'PASSWORD' to your real username and password
+    cy.get('input[name="loginKey"]').type(Cypress.env('USERNAME'), { delay: 200 });
     cy.wait(getRandomDelay());
-    cy.get('input.Z7tNyT[name="password"]').type('Aom@KMUTT555', { delay: 300 }); // Slower typing delay
+    cy.get('input[name="password"]').type(Cypress.env('PASSWORD'), { delay: 300 });
     cy.wait(getRandomDelay());
-    cy.get('button.vvOL40.iesrPs.AsFRg8.qCI4rz.ZKayWA.AnY7KS').should('not.be.disabled').click();
+    cy.get('button:contains("Login")').should('not.be.disabled').click();
 
     cy.wait(getRandomDelay());
     cy.get('.ZVb1Bo').should('contain', 'English');
   });
 
-  it('ScenarioB : Search for keywords “ baby toys “', () => {
+  // Scenario B
+  it('Scenario B: Search for keywords “baby toys”', () => {
     cy.wait(getRandomDelay());
-    cy.get('input.shopee-searchbar-input__input').type('baby toys', { delay: 200 }); // Slower typing delay
+    cy.get('input.shopee-searchbar-input__input').type('baby toys', { delay: 200 });
     cy.wait(getRandomDelay());
     cy.get('button.shopee-searchbar-input__submit').click();
   });
 
-  it('ScenarioB : Website display search result as a list', () => {
+  // Scenario C
+  it('Scenario C: Website displays search result as a list', () => {
     cy.wait(getRandomDelay());
     cy.get('.shopee-search-item-result__items').should('exist');
   });
